@@ -6,7 +6,7 @@ const port = 3000;
 
 const app = express(); //best practice to name this variable for the express method 'app'
 app.use(morgan("dev"));
-
+app.use(express.json());
 app.use(express.static(_dirname + "/public"));
 
 app.use((req, res) => {
