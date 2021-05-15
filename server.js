@@ -1,6 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
 const campsiteRouter = require("./routes/campsiteRouter");
+const partnerRouter = require("./routes/partnerRouter");
+const promotionRouter = require("./routes/promotionsRouter");
 
 const hostname = "localhost";
 const port = 3000;
@@ -29,7 +31,10 @@ app.delete("/campsites/:campsiteId", (req, res) => {
     res.end(`Deleting campsites ${req.params.campsiteId}`)
 });
 */
+
 app.use("/campsites", campsiteRouter);
+app.use("/partner", partnerRouter);
+app.use("/promotion", promotionRouter)
 
 app.use(express.static(__dirname + "/public")); //two underscores?
 
