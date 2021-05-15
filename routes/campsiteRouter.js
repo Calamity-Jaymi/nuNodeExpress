@@ -2,6 +2,7 @@ const express = require("express");
 const campsiteRouter = express.Router();
 
 campsiteRouter.route('/')
+    
 .all((req, res, next) => {
     res.statusCode = 200;
     res.setHeader("Content-Type", "text/plain");

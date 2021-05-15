@@ -9,30 +9,7 @@ const app = express(); //best practice to name this variable for the express met
 app.use(morgan("dev"));
 app.use(express.json()); //middleware function
 
-//////////
-app.all("/campsites", (req, res, next) => {
-    res.statusCode = 200;
-    res.setHeader("Content-type", "text/plain");
-    next();
-});//catch all?
-
-app.get("/campsites", (req, res) => {
-    res.end("Will send all campsites data?");
-});
-
-app.post("/campsites", (req, res) => {
-    res.end(`Will add the campsite: ${req.body.name} with description ${req.body.description}`)
-});
-
-app.put("/campsites", (req, res) => {
-    res.statusCode = 403;
-    res.end("PUT operations not supported on /campsites");
-});
-
-app.delete("/campsites", (req, res) => {
-    res.end("Deleting all campsites");
-});
-
+/* save for workshop reference
 app.get("/campsites/:campsiteId", (req, res) => {
     res.end(`Will send details of the campsite: ${req.params.campsiteId} to you`);
 });
@@ -51,9 +28,9 @@ app.put("/campsites:campsiteId", (req, res) => {
 app.delete("/campsites/:campsiteId", (req, res) => { 
     res.end(`Deleting campsites ${req.params.campsiteId}`)
 });
-
+*/
 app.use("/campsites", campsiteRouter);
-///////
+
 app.use(express.static(__dirname + "/public")); //two underscores?
 
 app.use((req, res) => {
