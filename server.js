@@ -7,11 +7,54 @@ const port = 3000;
 
 const app = express(); //best practice to name this variable for the express method 'app'
 app.use(morgan("dev"));
-app.use(express.json());
+app.use(express.json()); //middleware function
+
+//////////
+app.all("/campsites", (req, res, next) => {
+    res.statusCode = 200;
+    res.setHeader("Content-type", "text/plain");
+    next();
+});//catch all?
+
+app.get("/campsites", (req, res) => {
+    res.end("Will send all campsites data?");
+});
+
+app.post("/campsites", (req, res) => {
+    res.end(`Will add the campsite: ${req.body.name} with description ${req.body.description}`)
+});
+
+app.put("/campsites", (req, res) => {
+    res.statusCode = 403;
+    res.end("PUT operations not supported on /campsites");
+});
+
+app.delete("/campsites", (req, res) => {
+    res.end("Deleting all campsites");
+});
+
+app.get("/campsites/:campsiteId", (req, res) => {
+    res.end(`Will send details of the campsite: ${req.params.campsiteId} to you`);
+});
+
+app.post("/campsites/:campsiteId", (res, req) => { 
+    res.statusCode = 403;
+    res.end(`POST operation not supported /campsites/${req.params.campsiteId}`)
+});
+
+app.put("/campsites:campsiteId", (req, res) => {
+    res.write(`Updating the campsite: ${req.params.campsiteId}\n`);
+    res.end(`Will update the campsite: ${req.body.name}
+        with description: ${req.body.description}`);
+});
+
+app.delete("/campsites/:campsiteId", (req, res) => { 
+    res.end(`Deleting campsites ${req.params.campsiteId}`)
+});
 
 app.use("/campsites", campsiteRouter);
-
-app.use(express.static(_dirname + "/public")); //i forgot what i wanted to comment
+///////
+app.use(express.static(__dirname + "/public")); //two underscores?
 
 app.use((req, res) => {
     res.statusCode = 200;
