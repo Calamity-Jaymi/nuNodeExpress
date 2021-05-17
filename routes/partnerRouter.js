@@ -29,14 +29,14 @@ partnerRouter.route('/:partnerId')
         next();
     })
     .get((req, res) => {
-        res.end("Will send all the NUMBERED partners to you");
+        res.end(`Will send details of the selected partner: ${req.params.partnerId} to you`);
     })
     .post((req, res) => {
-        res.end(`POST operation not supported partner: ${req.params.partnerId}`);
+        res.statusCode = 403;
+        res.end(`POST operation not supported /partner/${req.params.partnerId}`);
     })
     .put((req, res) => {
-        res.statusCode = 403;
-        res.end('PUT operation not supported on /partners--');
+        res.write(`PUT not supported on /partners/${req.params.partnerId}\n`);
     })
     .delete((req, res) => {
         res.end('UHOH Deleting all partners');
